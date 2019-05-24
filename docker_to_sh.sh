@@ -12,6 +12,7 @@ OUTPUT=Dockerfile.sh
 
 echo "#!/bin/bash" > $OUTPUT
 echo "set -e" >> $OUTPUT
+echo 'DOCKERFILEPATH="$( cd "$(dirname "$0")" ; pwd -P )"' >> $OUTPUT
 cat $INPUT > $OUTPUT
 
 # Convert FROM, MAINTAINER, VOLUME, CMD to comments
@@ -38,7 +39,7 @@ sed -i "s/^EXPOSE\s/# EXPOSE /g" $OUTPUT
 
 # Convert ADD, COPY into cp
 # special case: ADD . -> refers to Dockerfile directory, which is no longer the same as the working directory if WORKDIR was used!
-sed -r -i 's/^(ADD|COPY)\s\./cp -r "$(dirname $0)"/g' $OUTPUT
+sed -r -i 's/^(ADD|COPY)\s\./cp -r "$DOCKERFILEPATH"/g' $OUTPUT
 sed -r -i "s/^(ADD|COPY)\s/cp -r /g" $OUTPUT
 
 # Timestamp
