@@ -20,7 +20,7 @@ sed -i "s/^VOLUME\s/# VOLUME /g" $OUTPUT
 sed -i "s/^RUN\s//g" $OUTPUT
 
 # Convert home directory into squiggles (tildes)
-sed -i "s/$HOME_DIRECTORY/~/g" $OUTPUT
+sed -i "s|$HOME_DIRECTORY|~|g" $OUTPUT
 
 # Convert ENVs into EXPORTs
 sed -r 's/^ENV\s([A-Z]*)\s*([a-z]*)/export \1=\2/g' -i $OUTPUT
