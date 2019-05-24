@@ -13,7 +13,7 @@ OUTPUT=Dockerfile.sh
 echo "#!/bin/bash" > $OUTPUT
 echo "set -e" >> $OUTPUT
 echo 'DOCKERFILEPATH="$( cd "$(dirname "$0")" ; pwd -P )"' >> $OUTPUT
-cat $INPUT > $OUTPUT
+cat $INPUT >> $OUTPUT
 
 # Convert FROM, MAINTAINER, VOLUME, CMD to comments
 sed -i "s/^FROM\s/# FROM /g" $OUTPUT
